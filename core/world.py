@@ -63,5 +63,10 @@ class World:
                     organism.x = new_x
                     organism.y = new_y
                     self.world_grid[organism.x][organism.y] = ORGANISM
-                    
                     # TODO: Add functionality regarding eating food
+                    organism.add_energy(20)
+            organism.lose_energy(2)
+            if not organism.is_alive:
+                self.world_grid[organism.x][organism.y] = EMPTY
+
+        self.organisms = [org for org in self.organisms if org.is_alive]
