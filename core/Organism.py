@@ -1,5 +1,5 @@
 import random
-
+from .config import EMPTY, FOOD, ORGANISM, MOVE_COST, MAX_ENERGY, WIDTH, HEIGHT
 from .brain import Brain
 
 move_cost = 5
@@ -14,8 +14,11 @@ class Organism:
         self.vision = self.dna.vision
         self.brain = Brain()
 
-    def choose_direction(self):
-        return self.brain.decide()
+    def choose_direction(self, grid):
+        vision = self.get_vision(grid)
+        energy = self.energy / MAX_ENERGY
+        inputs = [energy] + vision
+        return self.brain.decide(inputs)
         # dx = random.choice([1, -1, 0])
         # dy = random.choice([1, -1, 0])
         # return dx, dy
@@ -31,6 +34,21 @@ class Organism:
         if self.energy >= 100:
             self.energy = 100
         print("EAT")
+
+    def get_vision(self, grid):
+        vision = []
+        for dy in range(-2, 3):
+            for dx in range(-2, 3):
+                if dx == 0 and dy == 0:
+                    continue
+                tx, ty = self.x + dx, self.y + dy
+                if not (0 <= tx < WIDTH and 0 <= ty < HEIGHT):
+                    vision.append(-1)
+                else:
+                    target = grid[tx][ty]
+                    vision.append(target)
+
+        return vision
 
 class DNA:
     def __init__(self, max_energy, vision):

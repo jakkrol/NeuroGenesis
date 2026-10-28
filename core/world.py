@@ -1,10 +1,7 @@
 import random
 
 from .organism import Organism, DNA
-
-EMPTY = 0
-FOOD = 1
-ORGANISM = 9
+from .config import EMPTY, FOOD, ORGANISM, MOVE_COST, MAX_ENERGY, WIDTH, HEIGHT
 
 class World:
     def __init__(self, width, height, num_organisms, init_food):
@@ -47,7 +44,7 @@ class World:
     # Here the entire world state will be updated and prepared for redraw in sim window
     def update(self):
         for organism in self.organisms:
-            dx, dy = organism.choose_direction()
+            dx, dy = organism.choose_direction(self.world_grid)
             new_x = organism.x + dx
             new_y = organism.y + dy
 
@@ -63,7 +60,6 @@ class World:
                     organism.x = new_x
                     organism.y = new_y
                     self.world_grid[organism.x][organism.y] = ORGANISM
-                    # TODO: Add functionality regarding eating food
                     organism.add_energy(20)
             organism.lose_energy(2)
             if not organism.is_alive:
