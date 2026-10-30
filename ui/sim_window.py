@@ -20,7 +20,7 @@ class SimWindow:
     def run(self):
         pygame.init()
         screen = pygame.display.set_mode((self.screen_width, self.screen_height))
-        pygame.display.set_caption("NeuroGenesis - Symulacja Życia")
+        pygame.display.set_caption("NeuroGenesis")
         clock = pygame.time.Clock()
 
         running = True
@@ -45,7 +45,7 @@ class SimWindow:
             # Odświeżenie ekranu
             pygame.display.flip()
             
-            clock.tick(10)
+            clock.tick(60)
             self.world.update()
             
         pygame.quit()
