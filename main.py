@@ -5,9 +5,10 @@ from core.rules.metabolism import MetabolismRule
 from core.rules.aging import AgingRule
 from ui.sim_window import SimWindow
 from core.brains.base import BaseBrain 
-from core.brains.random import RandomBrain 
+from core.brains.random import RandomBrain
+from core.brains.mlp import MLP
 
-NUM_ORGANISMS = 1
+NUM_ORGANISMS = 25
 
 if __name__ == "__main__":
     world = World(WIDTH, HEIGHT)
@@ -24,7 +25,7 @@ if __name__ == "__main__":
     world.add_rule(AgingRule())
 
     for _ in range(NUM_ORGANISMS):
-        world.spawn_organism(RandomBrain())
+        world.spawn_organism(MLP())
 
 
     SimWindow(world).run()
