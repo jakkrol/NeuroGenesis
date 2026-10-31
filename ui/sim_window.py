@@ -1,21 +1,19 @@
 import pygame
 from core.world import World
-from core.config import EMPTY, FOOD, ORGANISM, MOVE_COST, MAX_ENERGY, WIDTH, HEIGHT
+from core.config import FOOD, ORGANISM, POISON
 
 class SimWindow:
-    def __init__(self, cell_size = 10):
-        self.width = WIDTH
-        self.height = HEIGHT
+    def __init__(self, world, cell_size = 10):
         self.cell_size = cell_size
-
-        self.screen_width = self.width * self.cell_size
-        self.screen_height = self.height * self.cell_size
+        self.screen_width = world.width * self.cell_size
+        self.screen_height = world.height * self.cell_size
 
         self.color_bg = (46, 204, 113)
         self.color_food = (231, 76, 60)
         self.color_organism = (30, 30, 30)
+        self.color_poison = (155, 89, 182)
 
-        self.world = World(self.width, self.height, num_organisms=10, init_food=100)
+        self.world = world
 
     def run(self):
         pygame.init()
@@ -41,11 +39,13 @@ class SimWindow:
                         pygame.draw.rect(screen, self.color_food, (x * self.cell_size, y * self.cell_size, self.cell_size, self.cell_size))
                     elif cell_type == ORGANISM:
                         pygame.draw.rect(screen, self.color_organism, (x * self.cell_size, y * self.cell_size, self.cell_size, self.cell_size))
+                    elif cell_type == POISON:
+                        pygame.draw.rect(screen, self.color_poison, (x * self.cell_size, y * self.cell_size, self.cell_size, self.cell_size))
 
             # Odświeżenie ekranu
             pygame.display.flip()
             
-            clock.tick(60)
-            self.world.update()
+            clock.tick(10)
+            self.world.step()
             
         pygame.quit()
