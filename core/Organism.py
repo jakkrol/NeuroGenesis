@@ -1,8 +1,6 @@
-import random
-from .config import EMPTY, FOOD, ORGANISM, MOVE_COST, MAX_ENERGY, WIDTH, HEIGHT
-from .brain import Brain
+from typing import Dict, List, Optional, Set, Tuple
+from .triats.base import OrganismTriats
 
-move_cost = 5
 
 class Organism:
     def __init__(self, x, y, dna, brain):
@@ -11,73 +9,68 @@ class Organism:
         self.y = y
         self.age = 0
         self.dna = dna
+        self.triats: Dict[str, "OrganismTriats"] = {}
         self.energy = self.dna.max_energy
-        self.vision = self.dna.vision
+        self.brain = brain
+        print(f"NA START: {self.energy}")
 
-        self.food_eaten = 0
-
-        if brain is None:
-            #print("Nowy mozg")
-            self.brain = Brain()
-        else:
-            #print("Zmodyfikowany mozg")
-            self.brain = brain
-
-    def choose_direction(self, grid):
-        vision = self.get_vision(grid)
-        energy = self.energy / MAX_ENERGY
-        inputs = [energy] + vision
+    def decide(self, obs):
+        inputs = [self.energy/self.dna.max_energy] + obs
         return self.brain.decide(inputs)
-        # dx = random.choice([1, -1, 0])
-        # dy = random.choice([1, -1, 0])
-        # return dx, dy
+
 
     def lose_energy(self, amount):
         self.energy -= amount
         if self.energy <= 0:
             self.is_alive = False
-            #print(f"DEAD at age {self.age}")
 
-    def add_energy(self, amount):
+
+    def add_energy(self, amount) -> None:
         self.energy += amount
-        if self.energy >= 100:
-            self.energy = 100
-        self.food_eaten += 1
+        if self.energy >= self.dna.max_energy:
+            self.energy = self.dna.max_energy
+        if self.energy <= 0:
+            self.is_alive = False
+        print(f"COS ODJEBAL: {self.energy}")
+
+
+    # ------------------triats ----------------------
+    def add_triat(self, name, triat):
+        pass
+
+    def get_triat(self, name):
+        pass
+
+    def has_triat(self, name):
+        pass
+
+    def remove_triat(self, name):
+        pass
+
+
         #print("EAT")
 
-    def get_vision(self, grid):
-        # Sprawdzamy tylko 4 pola
-        dirs = [
-            (0, -1),  # Góra
-            (1, 0),   # Prawo
-            (0, 1),   # Dół
-            (-1, 0)   # Lewo
-        ]
+
+    # def get_vision(self, grid):
+    #     # Sprawdzamy tylko 4 pola
+    #     dirs = [
+    #         (0, -1),  # Góra
+    #         (1, 0),   # Prawo
+    #         (0, 1),   # Dół
+    #         (-1, 0)   # Lewo
+    #     ]
         
-        vision = []
-        for dx, dy in dirs:
-            tx, ty = self.x + dx, self.y + dy
-            if not (0 <= tx < WIDTH and 0 <= ty < HEIGHT):
-                vision.append(-1)  
-            else:
-                vision.append(grid[tx][ty])
+    #     vision = []
+    #     for dx, dy in dirs:
+    #         tx, ty = self.x + dx, self.y + dy
+    #         if not (0 <= tx < WIDTH and 0 <= ty < HEIGHT):
+    #             vision.append(-1)  
+    #         else:
+    #             vision.append(grid[tx][ty])
 
-        return vision
-        # vision = []
-        # for dy in range(-2, 3):
-        #     for dx in range(-2, 3):
-        #         if dx == 0 and dy == 0:
-        #             continue
-        #         tx, ty = self.x + dx, self.y + dy
-        #         if not (0 <= tx < WIDTH and 0 <= ty < HEIGHT):
-        #             vision.append(-1)
-        #         else:
-        #             target = grid[tx][ty]
-        #             vision.append(target)
+    #     return vision
 
-        # return vision
 
 class DNA:
-    def __init__(self, max_energy, vision):
+    def __init__(self, max_energy):
         self.max_energy = max_energy
-        self.vision = vision
