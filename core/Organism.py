@@ -48,27 +48,6 @@ class Organism:
         pass
 
 
-        #print("EAT")
-
-
-    # def get_vision(self, grid):
-    #     # Sprawdzamy tylko 4 pola
-    #     dirs = [
-    #         (0, -1),  # Góra
-    #         (1, 0),   # Prawo
-    #         (0, 1),   # Dół
-    #         (-1, 0)   # Lewo
-    #     ]
-        
-    #     vision = []
-    #     for dx, dy in dirs:
-    #         tx, ty = self.x + dx, self.y + dy
-    #         if not (0 <= tx < WIDTH and 0 <= ty < HEIGHT):
-    #             vision.append(-1)  
-    #         else:
-    #             vision.append(grid[tx][ty])
-
-    #     return vision
 
 
 class DNA:
