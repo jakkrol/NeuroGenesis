@@ -27,4 +27,17 @@ class MLP(nn.Module):
         x = self.relu2(x)
         x = self.output(x)
         return(x)
+
+
+    def clone(self):
+        return copy.deepcopy(self)
+
+    def mutate(self):
+        mutated = self.clone()
+        with torch.no_grad():
+            for param in mutated.parameters():
+                mask = torch.randn_like(param) < 0.2
+                noise = torch.randn_like(param) * 0.1
+                param.add_(mask * noise)
+        return mutated
     

@@ -8,6 +8,7 @@ from core.brains.base import BaseBrain
 from core.brains.random import RandomBrain
 from core.brains.mlp import MLP
 from core.trainers.base import BaseTrainer
+from core.trainers.evolution_trainer import EvolutionTrainer
 
 NUM_ORGANISMS = 25
 
@@ -29,5 +30,5 @@ if __name__ == "__main__":
         world.spawn_organism(MLP())
 
 
-    trainer = BaseTrainer(world)
+    trainer = EvolutionTrainer(world)
     SimWindow(trainer).run()

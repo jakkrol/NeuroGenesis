@@ -14,6 +14,7 @@ class Organism:
         self.brain = brain
         print(f"NA START: {self.energy}")
 
+
     def decide(self, obs):
         inputs = [self.energy/self.dna.max_energy] + obs
         return self.brain.decide(inputs)
@@ -31,7 +32,6 @@ class Organism:
             self.energy = self.dna.max_energy
         if self.energy <= 0:
             self.is_alive = False
-        print(f"COS ODJEBAL: {self.energy}")
 
 
     # ------------------triats ----------------------

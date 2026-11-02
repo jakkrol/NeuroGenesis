@@ -6,8 +6,11 @@ from .config import EMPTY, ORGANISM, MAX_ENERGY, DIRECTIONS, WALL
 from .organism import Organism, DNA
 from .rules.base import WorldRule
 
-class World:
+from .events import EventEmitter
+
+class World(EventEmitter):
     def __init__(self, width, height):
+        super().__init__()
         self.width = width
         self.height = height
         self.organisms: List[Organism] = []
@@ -108,6 +111,10 @@ class World:
                 self.kill(org)
         self.organisms = [o for o in self.organisms if o.is_alive]
 
+        # Simulation should be stopped so it will emit only once
+        if len(self.organisms) == 0:
+            self.emit("all_dead")
+
 
     def get_orientation(self, organism: Organism):
         vision = []
@@ -134,7 +141,7 @@ class World:
             self.world_grid[organism.x][organism.y] = ORGANISM
             self.org_positions[(x, y)] = organism  
             for rule in self.rules:
-                rule.on_enter(self, organism, x, y, content)                
+                rule.on_enter(self, organism, x, y, content)
         else:
             for rule in self.rules:
                 rule.on_blocked(self, organism, x, y, content)

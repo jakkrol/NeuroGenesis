@@ -17,7 +17,8 @@ class FoodRule(WorldRule):
     def on_enter(self, world, organism, x, y, previous):
         if previous == self.cell_code:
             organism.add_energy(self.energy)
-            #world.emit("ate", organism, cell=self.cell_code, energy=self.energy)
+            world.emit("ate", organism, cell=self.cell_code, energy=self.energy)
+            
 
     def spawn(self, world, count: int) -> int:
         return world.scatter(self.cell_code, count)
