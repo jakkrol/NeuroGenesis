@@ -10,15 +10,15 @@ from core.brains.mlp import MLP
 from core.trainers.base import BaseTrainer
 from core.trainers.evolution_trainer import EvolutionTrainer
 
-NUM_ORGANISMS = 25
+NUM_ORGANISMS = 100
 
 if __name__ == "__main__":
     world = World(WIDTH, HEIGHT)
 
-    world.add_rule(FoodRule(count=300))
-    world.add_rule(FoodRule(2, -10, 300))
+    world.add_rule(FoodRule(count=600))
+    #world.add_rule(FoodRule(2, -10, 300))
     world.add_rule(MetabolismRule())
-    world.add_rule(AgingRule())
+    #world.add_rule(AgingRule())
 
     # world.reset()
 
