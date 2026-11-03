@@ -52,6 +52,8 @@ class World(EventEmitter):
         self.world_grid = self._empty_grid()
         self.organisms = []
         self.org_positions = {}
+        for rule in self.rules:
+            rule.on_start(self)
 
     def scatter(self, cell_code: int, count: int) -> int:
         placed = 0
@@ -77,6 +79,7 @@ class World(EventEmitter):
         if self.org_positions.get((organism.x, organism.y)) is organism:
             del self.org_positions[(organism.x, organism.y)]
             self.world_grid[organism.x][organism.y] = EMPTY
+        self.emit("organism_died", organism)
 
     def spawn_organism(self, brain, dna: Optional[DNA] = None, pos: Optional[Tuple[int, int]] = None) -> Optional[Organism]:
         # Dodać obsługę gdy pos istnieje
@@ -145,61 +148,3 @@ class World(EventEmitter):
         else:
             for rule in self.rules:
                 rule.on_blocked(self, organism, x, y, content)
-
-
-
-
-
-
-
-    # def spawn_organism(self, brain=None):
-    #     while True:
-    #         pos_x = random.randint(0, self.width - 1)
-    #         pos_y = random.randint(0, self.height - 1)
-    #         if self.world_grid[pos_x][pos_y] == EMPTY:
-    #             break
-
-    #     self.world_grid[pos_x][pos_y] = ORGANISM
-
-    #     # Add new organism to array
-    #     new_dna = DNA(100, 3)
-    #     new_organism = Organism(pos_x, pos_y, new_dna, brain)
-    #     self.organisms.append(new_organism)
-
-
-
-    # # Here the entire world state will be updated and prepared for redraw in sim window
-    # def update(self):
-    #     for organism in self.organisms:
-    #         if not organism.is_alive:
-    #             continue
-
-    #         organism.age += 1
-    #         dx, dy = organism.choose_direction(self.world_grid)
-    #         new_x = organism.x + dx
-    #         new_y = organism.y + dy
-
-    #         if 0 <= new_x < self.width and 0 <= new_y < self.height:
-    #             target = self.world_grid[new_x][new_y]
-    #             if target == EMPTY:
-    #                 self.world_grid[organism.x][organism.y] = EMPTY
-    #                 organism.x = new_x
-    #                 organism.y = new_y
-    #                 self.world_grid[organism.x][organism.y] = ORGANISM
-    #             elif target == FOOD:
-    #                 self.world_grid[organism.x][organism.y] = EMPTY
-    #                 organism.x = new_x
-    #                 organism.y = new_y
-    #                 self.world_grid[organism.x][organism.y] = ORGANISM
-    #                 organism.add_energy(20)
-                    
-    #         organism.lose_energy(2)
-    #         if not organism.is_alive:
-    #             self.world_grid[organism.x][organism.y] = EMPTY
-
-    #     # Sprawdzamy, czy KTÓRYKOLWIEK organizm jeszcze żyje.
-    #     any_alive = any(org.is_alive for org in self.organisms)
-    #     if not any_alive:
-    #         self.check_generation_end()
-
-

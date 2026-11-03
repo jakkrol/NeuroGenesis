@@ -2,9 +2,10 @@ from ..config import FOOD, FOOD_ENERGY_GAIN
 from .base import WorldRule
 
 class FoodRule(WorldRule):
-    def __init__(self, cell_code: int = FOOD, energy: float = FOOD_ENERGY_GAIN, name: str = None):
+    def __init__(self, cell_code: int = FOOD, energy: float = FOOD_ENERGY_GAIN, count: int = 100, name: str = None):
         self.cell_code = cell_code
         self.energy = energy
+        self.count = count
         self.name = name or f"food_{cell_code}"
 
     def on_attach(self, world):
@@ -19,6 +20,8 @@ class FoodRule(WorldRule):
             organism.add_energy(self.energy)
             world.emit("ate", organism, cell=self.cell_code, energy=self.energy)
             
-
     def spawn(self, world, count: int) -> int:
         return world.scatter(self.cell_code, count)
+
+    def on_start(self, world):
+        world.scatter(self.cell_code, self.count)

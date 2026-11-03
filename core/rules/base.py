@@ -28,4 +28,7 @@ class WorldRule:
     def on_step_end(self, world: "World") -> None:
         """Koniec tury."""
 
+    def on_start(self, world: "World") -> None:
+        """Początek przebiegu (start i każdy reset): wstaw początkową zawartość świata."""
+
 

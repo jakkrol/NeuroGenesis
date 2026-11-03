@@ -15,20 +15,17 @@ NUM_ORGANISMS = 25
 if __name__ == "__main__":
     world = World(WIDTH, HEIGHT)
 
-    food = FoodRule()
-    world.add_rule(food)
-    food.spawn(world, 300)
-
-    poison = FoodRule(2, -10)
-    world.add_rule(poison)
-    poison.spawn(world, 300)
-
-    #world.add_rule(MetabolismRule())
+    world.add_rule(FoodRule(count=300))
+    world.add_rule(FoodRule(2, -10, 300))
+    world.add_rule(MetabolismRule())
     world.add_rule(AgingRule())
 
-    for _ in range(NUM_ORGANISMS):
-        world.spawn_organism(MLP())
+    # world.reset()
+
+    # for _ in range(NUM_ORGANISMS):
+    #     world.spawn_organism(MLP())
 
 
-    trainer = EvolutionTrainer(world)
+    trainer = EvolutionTrainer(world, MLP, population_size=NUM_ORGANISMS)
+    trainer.start()
     SimWindow(trainer).run()

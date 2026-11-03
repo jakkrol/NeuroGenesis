@@ -1,10 +1,19 @@
 class BaseTrainer:
-    def __init__(self, world):
+    def __init__(self, world, brain_factory, population_size=25):
         self.world = world
+        self.brain_factory = brain_factory
+        self.population_size = population_size
+
+
         self.world.on("ate", self.on_organism_ate)
+        self.world.on("all_dead", self.on_all_organisms_dead)
+        self.world.on("organism_died", self.on_organism_died)
+
+    def start(self):
+        self.world.reset()
+        for _ in range(self.population_size):
+            self.world.spawn_organism(self.brain_factory())
 
     def step(self):
         self.world.step()
 
-    def on_organism_ate(self, organism, cell, energy):
-        print(f"Organism {organism} ate cell {cell} and gained {energy} energy.")

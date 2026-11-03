@@ -12,7 +12,7 @@ class Organism:
         self.triats: Dict[str, "OrganismTriats"] = {}
         self.energy = self.dna.max_energy
         self.brain = brain
-        print(f"NA START: {self.energy}")
+        #print(f"NA START: {self.energy}")
 
 
     def decide(self, obs):

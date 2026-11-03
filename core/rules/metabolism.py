@@ -6,4 +6,4 @@ class MetabolismRule(WorldRule):
 
     def on_organism_tick(self, world, organism) -> None:
         organism.lose_energy(ENERGY_LOSS_ON_TICK)
-        print("ENERGY LOSS")
+        #print("ENERGY LOSS")
