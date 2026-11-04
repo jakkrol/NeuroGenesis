@@ -4,8 +4,10 @@ import torch.nn as nn
 from ..config import DIRECTIONS
 
 class MLP(nn.Module):
-    def __init__(self, input_size = len(DIRECTIONS) + 1, output_size = len(DIRECTIONS), hidden = 16):
+    def __init__(self, input_size = len(DIRECTIONS) + 1, output_size = len(DIRECTIONS), hidden = 16, add_dims = 0):
         super(MLP, self).__init__()
+        self.input_size = input_size + add_dims
+        self.output_size = output_size
 
         # self.input = nn.Linear(input_size, hidden)
         # self.relu = nn.ReLU()
@@ -13,7 +15,7 @@ class MLP(nn.Module):
         # self.relu2 = nn.ReLU()
         # self.output  = nn.Linear(hidden, output_size)
 
-        self.fc = nn.Linear(input_size, output_size)
+        self.fc = nn.Linear(self.input_size, self.output_size)
 
     def decide(self, input):
         #print(input)

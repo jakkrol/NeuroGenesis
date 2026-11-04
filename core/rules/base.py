@@ -6,6 +6,7 @@ if TYPE_CHECKING:
 
 class WorldRule:
     name = "rule"
+    additional_inputs = 0
 
     def on_attach(self, world: "World") -> None:
         """Po dodaniu do świata (tu np. zarejestruj przechodnie typy komórek)."""
@@ -30,5 +31,9 @@ class WorldRule:
 
     def on_start(self, world: "World") -> None:
         """Początek przebiegu (start i każdy reset): wstaw początkową zawartość świata."""
+
+    def get_tile_info(self, world: "World", x: int, y: int, content: int) -> int:
+        """Dodatkowe informacje o polu (x, y)."""
+        return 0
 
 

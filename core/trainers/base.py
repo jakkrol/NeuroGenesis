@@ -9,10 +9,12 @@ class BaseTrainer:
         self.world.on("all_dead", self.on_all_organisms_dead)
         self.world.on("organism_died", self.on_organism_died)
 
+        self.additional_dims = self.world.calc_additional_dims()
+
     def start(self):
         self.world.reset()
         for _ in range(self.population_size):
-            self.world.spawn_organism(self.brain_factory())
+            self.world.spawn_organism(self.brain_factory(add_dims=self.additional_dims))
 
     def step(self):
         self.world.step()

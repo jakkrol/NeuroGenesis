@@ -46,7 +46,7 @@ class SimWindow:
             # Odświeżenie ekranu
             pygame.display.flip()
  
-            clock.tick(40)
+            clock.tick(20)
             self.trainer.step()
  
         pygame.quit()

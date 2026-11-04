@@ -20,7 +20,12 @@ class World(EventEmitter):
         self.world_grid = self._empty_grid()
 
 
-
+    # ------------- prep inputs ----------------
+    def calc_additional_dims(self) -> int:
+        total_additional = 0
+        for rule in self.rules:
+            total_additional += rule.additional_inputs
+        return total_additional
 
     # -------------- rules ----------------
     def add_rule(self, rule: WorldRule) -> None:
@@ -128,6 +133,18 @@ class World(EventEmitter):
                 vision.append(WALL)
             else:
                 vision.append(self.world_grid[tx][ty])
+
+        for rule in self.rules:
+            if rule.additional_inputs > 0:
+                for i, (dx, dy) in enumerate(DIRECTIONS):
+                    tx = organism.x + dx
+                    ty = organism.y + dy
+                    if not (0 <= tx < self.width and 0 <= ty < self.height):
+                        vision.append(0)
+                        continue
+                    content = self.world_grid[tx][ty]
+                    info = rule.get_tile_info(self, tx, ty, content)
+                    vision.append(info)
         return vision
         
 
