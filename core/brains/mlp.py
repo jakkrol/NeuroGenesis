@@ -9,13 +9,13 @@ class MLP(nn.Module):
         self.input_size = input_size + add_dims
         self.output_size = output_size
 
-        # self.input = nn.Linear(input_size, hidden)
-        # self.relu = nn.ReLU()
-        # self.hidden = nn.Linear(hidden, hidden)
-        # self.relu2 = nn.ReLU()
-        # self.output  = nn.Linear(hidden, output_size)
+        self.input = nn.Linear(input_size, hidden)
+        self.relu = nn.ReLU()
+        self.hidden = nn.Linear(hidden, hidden)
+        self.relu2 = nn.ReLU()
+        self.output  = nn.Linear(hidden, output_size)
 
-        self.fc = nn.Linear(self.input_size, self.output_size)
+        #self.fc = nn.Linear(self.input_size, self.output_size)
 
     def decide(self, input):
         #print(input)
@@ -26,12 +26,12 @@ class MLP(nn.Module):
         return action
 
     def forward(self, x):
-        # x = self.input(x)
-        # x = self.relu(x)
-        # x = self.hidden(x)
-        # x = self.relu2(x)
-        # x = self.output(x)
-        x = self.fc(x)
+        x = self.input(x)
+        x = self.relu(x)
+        x = self.hidden(x)
+        x = self.relu2(x)
+        x = self.output(x)
+        #x = self.fc(x)
         return(x)
 
 

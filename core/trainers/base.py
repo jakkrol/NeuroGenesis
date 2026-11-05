@@ -4,6 +4,8 @@ class BaseTrainer:
         self.brain_factory = brain_factory
         self.population_size = population_size
 
+        self.additional_triats = {} # TUTAJ BEDA TRAITS DODANE DO SYMULACJI
+
 
         self.world.on("ate", self.on_organism_ate)
         self.world.on("all_dead", self.on_all_organisms_dead)
@@ -14,7 +16,10 @@ class BaseTrainer:
     def start(self):
         self.world.reset()
         for _ in range(self.population_size):
-            self.world.spawn_organism(self.brain_factory(add_dims=self.additional_dims))
+            org = self.world.spawn_organism(self.brain_factory(add_dims=self.additional_dims))
+
+            # for name, trait in self.additional_triats:
+            #     org.add_trait()
 
     def step(self):
         self.world.step()

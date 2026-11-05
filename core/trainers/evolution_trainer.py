@@ -4,10 +4,9 @@ from .base import BaseTrainer
 class EvolutionTrainer(BaseTrainer):
     def __init__(self, world, brain_factory, population_size=25):
         super().__init__(world, brain_factory, population_size)
-        # self.world.on("ate", self.on_organism_ate)
-        # self.world.on("all_dead", self.on_all_organisms_dead)
         self.graveyard = []  
         self.collectivly_eaten = 0
+
         
     def step(self):
         self.world.step()
