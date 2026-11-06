@@ -1,0 +1,20 @@
+# =========================
+# PYTHON (Engine)
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+
+# =========================
+# .NET / C# / Avalonia (Client)
+# =========================
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.slnx.sqlite
+TestResults/
