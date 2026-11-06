@@ -3,6 +3,7 @@ from core.world import World
 from core.rules.food import FoodRule
 from core.rules.metabolism import MetabolismRule
 from core.rules.fight import FightRule
+from core.rules.reproduction import ReproductionRule
 from core.rules.aging import AgingRule
 from ui.sim_window import SimWindow
 from core.brains.base import BaseBrain 
@@ -21,6 +22,7 @@ if __name__ == "__main__":
     world.add_rule(MetabolismRule())
     #world.add_rule(AgingRule())
     #world.add_rule(FightRule())
+    world.add_rule(ReproductionRule())
 
     # world.reset()
 

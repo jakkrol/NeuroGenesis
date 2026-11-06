@@ -35,16 +35,16 @@ class Organism:
 
 
     # ------------------triats ----------------------
-    def add_triat(self, name, triat):
+    def add_trait(self, name, trait):
+        self.triats[name] = trait
+
+    def get_trait(self, name):
+        return self.triats[name].val
+
+    def has_trait(self, name):
         pass
 
-    def get_triat(self, name):
-        pass
-
-    def has_triat(self, name):
-        pass
-
-    def remove_triat(self, name):
+    def remove_trait(self, name):
         pass
 
 

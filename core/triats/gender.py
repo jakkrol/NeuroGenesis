@@ -2,7 +2,8 @@ from .base import OrganismTriats
 import random
 
 class GenderTrait(OrganismTriats):
-    name = "sex"
+    name = "gender"
 
     def __init__(self):
-        self.val = random([-1, 1])
+        self.val = random.choice([-1, 1])
+        print("Wywolano gender trait")
