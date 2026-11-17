@@ -1,9 +1,11 @@
 from typing import Dict, List, Optional, Set, Tuple
 from .triats.base import OrganismTriats
+import uuid
 
 
 class Organism:
     def __init__(self, x, y, dna, brain):
+        self.id = str(uuid.uuid4())
         self.is_alive = True
         self.x = x
         self.y = y

@@ -33,6 +33,8 @@ class World(EventEmitter):
             return None # Albo error
         self.rules.append(rule)
         rule.on_attach(self)
+        # może potem wrzucić to do reset
+        self.rules.sort(key=lambda rule: rule.priority, reverse=True)
 
 
     def remove_rule(self, rule: WorldRule) -> None:
@@ -161,7 +163,9 @@ class World(EventEmitter):
             self.world_grid[organism.x][organism.y] = ORGANISM
             self.org_positions[(x, y)] = organism  
             for rule in self.rules:
-                rule.on_enter(self, organism, x, y, content)
+                if rule.on_enter(self, organism, x, y, content):
+                    break # Na razie wywołujemy tylko jedno zachowanie/zasadę, może w przyszłoci pojawi się wiele akcji na jedną kratkę
         else:
             for rule in self.rules:
-                rule.on_blocked(self, organism, x, y, content)
+                if rule.on_blocked(self, organism, x, y, content):
+                    break # Tak jak powyżej

@@ -21,7 +21,7 @@ if __name__ == "__main__":
     #world.add_rule(FoodRule(2, -10, 300))
     world.add_rule(MetabolismRule())
     #world.add_rule(AgingRule())
-    #world.add_rule(FightRule())
+    world.add_rule(FightRule())
     world.add_rule(ReproductionRule())
 
     # world.reset()

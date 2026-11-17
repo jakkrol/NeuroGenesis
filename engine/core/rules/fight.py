@@ -3,6 +3,7 @@ from .base import WorldRule
 
 class FightRule(WorldRule):
     name="fight"
+    priority = 50
     additional_inputs = len(DIRECTIONS)
 
     def on_blocked(self, world, organism, x, y, content):
@@ -17,6 +18,9 @@ class FightRule(WorldRule):
                     world.kill(organism)
                     other_org.add_energy(200) ## For now, it gets full energy, will be adjusted later
                 print(f"Fight between {organism} and {other_org}. Winner: {organism if organism.energy > other_org.energy else other_org}")
+            
+            return True
+        return False
 
 
     def get_tile_info(self, world, x, y, content):

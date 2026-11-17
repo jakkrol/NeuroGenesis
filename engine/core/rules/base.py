@@ -6,6 +6,7 @@ if TYPE_CHECKING:
 
 class WorldRule:
     name = "rule"
+    priority = 0
     additional_inputs = 0
 
     def on_attach(self, world: "World") -> None:
