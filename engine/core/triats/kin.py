@@ -7,3 +7,6 @@ class KinTrait(OrganismTriats):
         self.parents = set(parents) if parents else set()
         self.children = set()
         print("Wywołano kin triat")
+
+    def clone_for_child(self):
+        return KinTrait()

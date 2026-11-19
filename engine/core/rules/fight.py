@@ -18,8 +18,8 @@ class FightRule(WorldRule):
                     world.kill(organism)
                     other_org.add_energy(200) ## For now, it gets full energy, will be adjusted later
                 print(f"Fight between {organism} and {other_org}. Winner: {organism if organism.energy > other_org.energy else other_org}")
-            
             return True
+        # Fight not happen
         return False
 
 

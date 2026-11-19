@@ -10,19 +10,19 @@ class WorldRule:
     additional_inputs = 0
 
     def on_attach(self, world: "World") -> None:
-        """Po dodaniu do świata (tu np. zarejestruj przechodnie typy komórek)."""
+        """Po dodaniu do świata"""
  
     def on_detach(self, world: "World") -> None:
-        """Przy usuwaniu ze świata (tu posprzątaj po sobie)."""
+        """Przy usuwaniu ze świata"""
  
     def on_step_start(self, world: "World") -> None:
-        """Początek tury (np. odrastanie jedzenia)."""
+        """Początek tury"""
  
     def on_organism_tick(self, world: "World", organism: "Organism") -> None:
-        """Dla każdego żywego organizmu, po jego ruchu (np. metabolizm)."""
+        """Dla każdego żywego organizmu, po jego ruchu"""
  
     def on_enter(self, world: "World", organism: "Organism", x: int, y: int, previous: int) -> None:
-        """Organizm wszedł na pole (x, y); `previous` to kod, który tam był (np. FOOD)."""
+        """Organizm wszedł na pole (x, y); 'previous' to kod, który tam był (np. FOOD)."""
  
     def on_blocked(self, world: "World", organism: "Organism", x: int, y: int, content: int) -> None:
         """Organizm próbował wejść na nieprzechodnie pole (np. walka z innym organizmem)."""

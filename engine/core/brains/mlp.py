@@ -2,23 +2,25 @@ import torch
 import copy
 import torch.nn as nn
 from ..config import DIRECTIONS
+from .base import BaseBrain
 
-class MLP(nn.Module):
-    def __init__(self, input_size = len(DIRECTIONS) + 1, output_size = len(DIRECTIONS), hidden = 16, add_dims = 0):
-        super(MLP, self).__init__()
+class MLP(nn.Module, BaseBrain):
+    def __init__(self, input_size = len(DIRECTIONS) + 1, output_size = len(DIRECTIONS), hidden = 64, add_dims = 0):
+        nn.Module.__init__(self)
+        BaseBrain.__init__(self, add_dims=add_dims)
         self.input_size = input_size + add_dims
         self.output_size = output_size
 
-        # self.input = nn.Linear(input_size, hidden)
-        # self.relu = nn.ReLU()
-        # self.hidden = nn.Linear(hidden, hidden)
-        # self.relu2 = nn.ReLU()
-        # self.output  = nn.Linear(hidden, output_size)
+        self.input = nn.Linear(self.input_size, hidden)
+        self.relu = nn.GELU()
+        self.hidden = nn.Linear(hidden, hidden)
+        self.relu2 = nn.GELU()
+        self.output  = nn.Linear(hidden, self.output_size)
 
-        self.fc = nn.Linear(self.input_size, self.output_size)
+        #self.fc = nn.Linear(self.input_size, self.output_size)
 
     def decide(self, input):
-        #print(input)
+        print(input)
         x = torch.tensor(input, dtype=torch.float32)
         with torch.no_grad():
             out = self.forward(x)
@@ -26,12 +28,12 @@ class MLP(nn.Module):
         return action
 
     def forward(self, x):
-        # x = self.input(x)
-        # x = self.relu(x)
-        # x = self.hidden(x)
-        # x = self.relu2(x)
-        # x = self.output(x)
-        x = self.fc(x)
+        x = self.input(x)
+        x = self.relu(x)
+        x = self.hidden(x)
+        x = self.relu2(x)
+        x = self.output(x)
+        #x = self.fc(x)
         return(x)
 
 

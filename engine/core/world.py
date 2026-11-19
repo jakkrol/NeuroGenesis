@@ -127,6 +127,7 @@ class World(EventEmitter):
 
 
     def get_orientation(self, organism: Organism):
+        # It will be good if vision will be taking 2 celss in all dirs instead of one
         vision = []
         for dx, dy in DIRECTIONS:
             tx = organism.x + dx
